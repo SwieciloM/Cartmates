@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Infrastructure marker only. Business models arrive in their own phases.
+model AppMetadata {
+  key       String   @id
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+}

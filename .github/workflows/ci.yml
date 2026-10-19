@@ -1,0 +1,43 @@
+name: CI
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  skeleton:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      COMPOSE_FILE: compose.yaml:compose.test.yaml
+      COMPOSE_PROJECT_NAME: cartmates-test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: cp .env.example .env
+      - run: npm ci
+      - run: npm run lint && npm run format:check && npm run build
+      - run: docker compose up --build -d --wait --wait-timeout 120
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - name: Collect container logs
+        if: always()
+        run: docker compose logs --no-color > compose.log 2>&1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-results
+          path: |
+            playwright-report/
+            test-results/
+            compose.log
+          retention-days: 7
+      - name: Remove isolated test resources
+        if: always()
+        run: docker compose down --volumes --remove-orphans

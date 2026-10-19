@@ -1,0 +1,22 @@
+# Use with compose.yaml. The different project name isolates containers and volume.
+name: cartmates-test
+
+services:
+  db:
+    environment:
+      POSTGRES_USER: cartmates_test
+      POSTGRES_PASSWORD: cartmates_test_only
+      POSTGRES_DB: cartmates_test
+    ports: !override
+      - '127.0.0.1:5433:5432'
+  migrate:
+    environment:
+      DATABASE_URL: postgresql://cartmates_test:cartmates_test_only@db:5432/cartmates_test
+      APP_ENV: test
+  api:
+    environment:
+      DATABASE_URL: postgresql://cartmates_test:cartmates_test_only@db:5432/cartmates_test
+      APP_ENV: test
+  web:
+    ports: !override
+      - '127.0.0.1:8081:80'

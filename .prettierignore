@@ -1,0 +1,7 @@
+package-lock.json
+node_modules
+dist
+apps/api/src/generated
+playwright-report
+test-results
+docs/PROJECT-PLAN.md
