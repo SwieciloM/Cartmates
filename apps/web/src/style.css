@@ -57,7 +57,53 @@ button:disabled {
   opacity: 0.6;
   cursor: wait;
 }
+.field {
+  margin-bottom: 4px;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  font: inherit;
+  border: 1px solid #718575;
+  border-radius: 6px;
+}
+[role='alert'],
+.field-error,
+[aria-invalid='true'] {
+  color: #8b261d;
+}
+p {
+  overflow-wrap: anywhere;
+}
 :focus-visible {
-  outline: 3px solid #bd6200;
-  outline-offset: 4px;
+  outline: 2px solid #bd6200;
+  outline-offset: 2px;
+}
+.field-error {
+  min-height: 1.6em;
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+}
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 16px;
+}
+.form-actions button {
+  flex-shrink: 0;
+}
+.login-actions {
+  margin-top: 12px;
+}
+.form-actions [role='alert'] {
+  flex: 1 1 180px;
+  margin: 0;
+  padding-top: 8px;
 }

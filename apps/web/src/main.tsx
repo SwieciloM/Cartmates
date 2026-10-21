@@ -2,6 +2,7 @@ import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes } from 'react-router';
 import './style.css';
+import { Accounts } from './accounts';
 
 function Status() {
   const [status, setStatus] = useState('Checking service…');
@@ -41,16 +42,21 @@ function App() {
       <p className="eyebrow">A shared household shopping list</p>
       <h1>Cartmates</h1>
       <p>
-        The foundation is ready. Accounts and shopping features are coming in
-        the next steps.
+        Keep your household shopping in one place. Create an account to get
+        started.
       </p>
       <nav aria-label="Main navigation">
         <Link to="/">Home</Link>
         <Link to="/status">Service status</Link>
+        <Link to="/account">Your account</Link>
+        <Link to="/login">Log in</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Status />} />
         <Route path="/status" element={<Status />} />
+        <Route path="/login" element={<Accounts />} />
+        <Route path="/register" element={<Accounts />} />
+        <Route path="/account" element={<Accounts />} />
         <Route path="*" element={<h2>Page not found</h2>} />
       </Routes>
     </main>
