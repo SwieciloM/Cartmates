@@ -17,6 +17,7 @@ services:
     environment:
       DATABASE_URL: postgresql://cartmates_test:cartmates_test_only@db:5432/cartmates_test
       APP_ENV: test
+      ALLOWED_ORIGINS: http://localhost:8081,http://127.0.0.1:8081
   web:
     ports: !override
       - '127.0.0.1:8081:80'

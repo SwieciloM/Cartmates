@@ -3,6 +3,9 @@ name: cartmates
 x-api-environment: &api-environment
   DATABASE_URL: postgresql://${POSTGRES_USER:?Copy .env.example to .env}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:?Set POSTGRES_DB}
   APP_ENV: local
+  ALLOWED_ORIGINS: http://localhost:${WEB_PORT:-8080},http://127.0.0.1:${WEB_PORT:-8080}
+  TRUST_PROXY: 'true'
+  COOKIE_SECURE: 'false'
 
 services:
   db:

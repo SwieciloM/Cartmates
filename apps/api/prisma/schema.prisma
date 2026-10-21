@@ -13,3 +13,24 @@ model AppMetadata {
   key       String   @id
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 }
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  displayName  String    @db.VarChar(60)
+  email        String    @unique @db.VarChar(254)
+  passwordHash String
+  createdAt    DateTime  @default(now()) @db.Timestamptz(3)
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(uuid()) @db.Uuid
+  tokenHash String   @unique @db.Char(64)
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  expiresAt DateTime @db.Timestamptz(3)
+
+  @@index([expiresAt])
+  @@index([userId])
+}
